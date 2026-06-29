@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Chá de Bebê do Pedro 🍼</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sage:#A8BBA2;--sage-light:#C8D6C2;--sage-dark:#7A9672;
+  --beige:#F5E9D8;--beige-dark:#EDD9C0;
+  --gold:#C9A86A;--gold-light:#E2C98A;--gold-dark:#A8854A;
+  --brown:#5C3D2E;--white:#FFFFFF;
+  --text:#3C2E20;--text-light:#7A6A5A;
+  --shadow:0 4px 24px rgba(60,46,32,.10);
+  --shadow-lg:0 8px 40px rgba(60,46,32,.15);
+  --radius:16px;--radius-sm:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--beige);color:var(--text);min-height:100vh}
+.hidden{display:none!important}
+
+#btn-admin-gear{
+  position:fixed;top:14px;right:14px;z-index:200;
+  background:rgba(255,255,255,.85);backdrop-filter:blur(6px);
+  border:none;border-radius:50%;width:40px;height:40px;
+  cursor:pointer;font-size:18px;box-shadow:var(--shadow);
+  display:flex;align-items:center;justify-content:center;
+  opacity:.55;transition:opacity .2s;
+}
+#btn-admin-gear:hover{opacity:1}
+
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#A8BBA2 0%,#C8D6C2 40%,#F5E9D8 100%);
+  padding:60px 24px 100px;text-align:center;
+}
+.hero::after{
+  content:'';position:absolute;bottom:-1px;left:0;right:0;height:60px;
+  background:linear-gradient(to bottom right,transparent 49%,var(--beige) 50%);
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.cloud{position:absolute;background:rgba(255,255,255,.4);border-radius:50px}
+.c1{width:120px;height:40px;top:14%;left:-20px;animation:drift 12s infinite ease-in-out}
+.c2{width:90px;height:30px;top:25%;right:-10px;animation:drift 16s 4s infinite ease-in-out reverse}
+.leaf{position:absolute;border-radius:50% 0}
+.l1{width:40px;height:60px;background:rgba(168,187,162,.4);top:10%;right:8%;transform:rotate(30deg);animation:sway 8s infinite ease-in-out}
+.l2{width:30px;height:50px;background:rgba(168,187,162,.3);bottom:20%;left:5%;transform:rotate(-20deg);animation:sway 10s 2s infinite ease-in-out reverse}
+.l3{width:25px;height:40px;background:rgba(168,187,162,.35);top:55%;right:3%;transform:rotate(50deg);animation:sway 7s 1s infinite ease-in-out}
+.star-dot{position:absolute;border-radius:50%;background:var(--gold);opacity:.5;animation:twinkle 3s infinite ease-in-out}
+.s0{width:4px;height:4px;top:8%;left:20%;animation-delay:0s}
+.s1{width:3px;height:3px;top:30%;left:85%;animation-delay:.5s}
+.s2{width:5px;height:5px;top:60%;left:10%;animation-delay:1s}
+.s3{width:3px;height:3px;top:15%;left:60%;animation-delay:1.5s}
+.s4{width:4px;height:4px;top:45%;right:15%;animation-delay:.3s}
+.s5{width:6px;height:6px;top:70%;left:50%;animation-delay:.8s}
+.s6{width:3px;height:3px;top:20%;left:40%;animation-delay:1.2s}
+.s7{width:4px;height:4px;bottom:10%;right:25%;animation-delay:.6s}
+@keyframes drift{0%,100%{transform:translateX(0)}50%{transform:translateX(20px)}}
+@keyframes sway{0%,100%{transform:rotate(30deg)}50%{transform:rotate(40deg)}}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:.8;transform:scale(1.3)}}
+
+.hero-content{position:relative;z-index:1}
+.hero-bear{width:80px;height:80px;margin:0 auto 16px}
+.hero-stars{display:flex;justify-content:center;gap:4px;color:var(--gold);margin-bottom:12px}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,6vw,3rem);font-weight:700;color:var(--brown);line-height:1.1;margin-bottom:8px}
+.hero-name{color:var(--gold-dark);font-style:italic}
+.hero-welcome{font-size:clamp(.9rem,2.5vw,1rem);color:var(--brown);opacity:.8;max-width:560px;margin:0 auto 28px;line-height:1.7}
+.event-details{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:28px}
+.event-item{font-size:.95rem;color:var(--brown);font-weight:500}
+.maps-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gold);color:white;border:none;border-radius:50px;
+  padding:10px 24px;font-size:.9rem;font-weight:600;cursor:pointer;
+  text-decoration:none;margin-top:8px;
+  box-shadow:0 4px 16px rgba(201,168,106,.4);
+  transition:transform .2s,box-shadow .2s;
+}
+.maps-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(201,168,106,.5)}
+
+.countdown-section{margin-top:4px}
+.countdown-title{font-size:.8rem;text-transform:uppercase;letter-spacing:2px;color:var(--brown);opacity:.6;margin-bottom:12px}
+.countdown-wrap{display:flex;justify-content:center;gap:clamp(8px,3vw,20px);flex-wrap:wrap}
+.countdown-unit{background:rgba(255,255,255,.6);border-radius:12px;padding:12px 16px;min-width:64px;text-align:center;backdrop-filter:blur(8px)}
+.countdown-num{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,4vw,2rem);font-weight:700;color:var(--brown);line-height:1}
+.countdown-sub{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-light)}
+
+.main{max-width:800px;margin:0 auto;padding:0 16px}
+.section{margin:40px 0}
+.section-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,4vw,1.8rem);font-weight:600;color:var(--brown);margin-bottom:20px;display:flex;align-items:center;gap:10px}
+
+.progress-section{background:white;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;color:var(--brown);margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
+@media(min-width:480px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
+.stat-card{background:var(--beige);border-radius:var(--radius-sm);padding:16px 12px;text-align:center;transition:transform .2s}
+.stat-card:hover{transform:translateY(-2px)}
+.stat-green{background:linear-gradient(135deg,#E8F5E9,#C8E6C9)}
+.stat-gold{background:linear-gradient(135deg,#FFF8E1,#FFE082)}
+.stat-icon{font-size:1.4rem;display:block;margin-bottom:4px}
+.stat-num{display:block;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--brown);line-height:1}
+.stat-label{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-light)}
+.progress-bar-bg{background:var(--beige-dark);border-radius:50px;height:12px;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:50px;position:relative;transition:width .8s ease;min-width:4px}
+.progress-bar-shine{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.progress-caption{text-align:center;font-size:.82rem;color:var(--text-light);margin-top:8px}
+
+.form-card{background:white;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+.form-group{margin-bottom:18px}
+.form-label{display:block;font-size:.85rem;font-weight:600;color:var(--text);margin-bottom:6px}
+.req{color:#E57373}
+.opt{color:var(--text-light);font-weight:400;font-size:.8rem}
+.form-input{
+  width:100%;padding:12px 16px;
+  border:2px solid var(--beige-dark);border-radius:var(--radius-sm);
+  font-size:.95rem;font-family:'Inter',sans-serif;
+  background:var(--beige);color:var(--text);
+  transition:border-color .2s,box-shadow .2s;outline:none;appearance:none;
+}
+.form-input:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(168,187,162,.25)}
+textarea.form-input{resize:vertical;min-height:90px}
+
+.brand-notice{
+  background:linear-gradient(135deg,#FFF8E1,#FFF3CC);
+  border:2px solid var(--gold-light);border-radius:var(--radius);
+  padding:20px 22px;margin-bottom:24px;text-align:center;
+}
+.brand-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;font-weight:700;color:var(--brown);
+  margin-bottom:14px;letter-spacing:.5px;
+}
+.brand-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:480px){.brand-grid{grid-template-columns:repeat(2,1fr)}}
+.brand-card{
+  background:white;border-radius:var(--radius-sm);
+  padding:14px 8px;display:flex;flex-direction:column;
+  align-items:center;gap:6px;
+  border:2px solid var(--gold-light);
+  box-shadow:0 2px 8px rgba(201,168,106,.15);
+  transition:transform .2s,box-shadow .2s;
+}
+.brand-card:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(201,168,106,.3)}
+.brand-icon{font-size:1.5rem}
+.brand-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:700;color:var(--brown);letter-spacing:.3px;
+}
+
+.cat-block{margin-bottom:28px}
+.cat-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.cat-badge{background:var(--gold);color:white;border-radius:8px;padding:4px 12px;font-size:.8rem;font-weight:700;letter-spacing:1px}
+.cat-label-txt{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--brown)}
+.cat-avail{margin-left:auto;font-size:.8rem;color:var(--text-light)}
+
+.gift-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+@media(max-width:400px){.gift-grid{grid-template-columns:1fr 1fr}}
+.gift-card{
+  position:relative;text-align:left;
+  padding:12px 14px;border-radius:var(--radius-sm);
+  border:2px solid var(--beige-dark);cursor:pointer;
+  transition:all .2s;font-family:'Inter',sans-serif;
+  display:flex;flex-direction:column;gap:4px;
+  background:white;width:100%;
+}
+.gift-card:hover:not(.g-reserved){border-color:var(--sage);transform:translateY(-2px);box-shadow:var(--shadow)}
+.gift-card.g-selected{background:linear-gradient(135deg,#E8F5E9,#D4EDDA);border-color:var(--sage-dark)}
+.gift-card.g-reserved{background:var(--beige);border-color:var(--beige-dark);cursor:not-allowed;opacity:.65}
+.gift-num{font-size:.7rem;color:var(--text-light);font-weight:600}
+.gift-name-txt{font-size:.82rem;color:var(--text);font-weight:500;line-height:1.3}
+.gift-badge{display:inline-block;font-size:.68rem;padding:2px 8px;border-radius:20px;margin-top:4px;font-weight:600;background:rgba(120,170,120,.2);color:var(--sage-dark)}
+.g-selbadge{background:rgba(100,160,100,.25);color:#2E7D32}
+
+.sel-summary{background:linear-gradient(135deg,#E8F5E9,#D4EDDA);border-radius:var(--radius-sm);padding:12px 18px;margin-bottom:16px;font-size:.9rem;color:#2E7D32}
+
+.submit-section{text-align:center;padding-bottom:40px}
+.err-msg{color:#D32F2F;font-size:.88rem;background:#FFEBEE;border-radius:8px;padding:10px 16px;margin-bottom:16px}
+.btn-primary{
+  background:linear-gradient(135deg,var(--sage-dark),var(--sage));
+  color:white;border:none;border-radius:50px;
+  padding:16px 48px;font-size:1.05rem;font-weight:600;
+  cursor:pointer;font-family:'Inter',sans-serif;
+  box-shadow:0 4px 20px rgba(122,150,114,.4);
+  transition:transform .2s,box-shadow .2s,opacity .2s;
+}
+.btn-primary:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 28px rgba(122,150,114,.5)}
+.btn-primary:disabled{opacity:.7;cursor:not-allowed}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.btn-loading{animation:pulse 1.2s infinite}
+.btn-secondary{background:white;color:var(--brown);border:2px solid var(--beige-dark);border-radius:50px;padding:12px 32px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif;transition:all .2s;margin-top:16px}
+.btn-secondary:hover{border-color:var(--sage)}
+.submit-note{font-size:.8rem;color:var(--text-light);margin-top:12px}
+
+footer.site-footer{max-width:800px;margin:0 auto;text-align:center;padding:32px 16px;color:var(--text-light);font-size:.85rem}
+footer.site-footer svg{width:36px;height:36px;margin:0 auto 8px;display:block;opacity:.5}
+
+/* SUCCESS */
+#view-success{min-height:100vh;background:var(--beige);display:flex;align-items:center;justify-content:center;padding:24px}
+.success-card{background:white;border-radius:var(--radius);padding:40px 28px;max-width:520px;width:100%;box-shadow:var(--shadow-lg);text-align:center}
+.success-bear{width:64px;height:64px;margin:0 auto 12px}
+.success-stars{display:flex;justify-content:center;gap:4px;color:var(--gold);margin-bottom:16px}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--brown);margin-bottom:10px}
+.success-msg{font-size:.95rem;color:var(--text-light);line-height:1.6;margin-bottom:24px}
+.success-info{background:var(--beige);border-radius:var(--radius-sm);padding:20px;margin-bottom:20px;text-align:left}
+.suc-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding:8px 0;border-bottom:1px solid var(--beige-dark);font-size:.9rem}
+.suc-row:last-child{border:none}
+.suc-key{color:var(--text-light);font-weight:500;flex-shrink:0}
+.suc-val{color:var(--brown);font-weight:600;text-align:right}
+.suc-gifts-ttl{font-weight:600;color:var(--brown);font-size:.9rem;margin-bottom:10px;text-align:left}
+.suc-gift-item{display:flex;gap:8px;align-items:center;padding:7px 10px;background:var(--beige);border-radius:8px;margin-bottom:6px;font-size:.85rem;color:var(--text)}
+.sgi-num{font-size:.72rem;color:var(--text-light);font-weight:600}
+
+/* ADMIN LOGIN */
+#view-admin-login{min-height:100vh;background:var(--beige);display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{background:white;border-radius:var(--radius);padding:40px 28px;max-width:380px;width:100%;box-shadow:var(--shadow-lg);text-align:center;display:flex;flex-direction:column;gap:14px}
+.login-bear{width:56px;height:56px;margin:0 auto}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:700;color:var(--brown)}
+.login-sub{font-size:.85rem;color:var(--text-light)}
+
+/* ADMIN PANEL */
+#view-admin{background:var(--beige);min-height:100vh;padding:24px 16px 60px}
+.admin-inner{max-width:960px;margin:0 auto}
+.admin-header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.admin-title{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--brown)}
+.admin-sub{color:var(--text-light);font-size:.9rem}
+.admin-actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn-export{background:var(--gold);color:white;border:none;border-radius:50px;padding:10px 20px;font-size:.88rem;font-weight:600;cursor:pointer}
+.btn-logout{background:white;color:var(--brown);border:2px solid var(--beige-dark);border-radius:50px;padding:10px 20px;font-size:.88rem;font-weight:600;cursor:pointer}
+.btn-delete{background:none;border:none;cursor:pointer;font-size:1rem;padding:2px;opacity:.5}
+.btn-delete:hover{opacity:1}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-bottom:28px}
+.admin-stat{background:white;border-radius:var(--radius-sm);padding:16px 12px;text-align:center;box-shadow:var(--shadow)}
+.ast-icon{font-size:1.3rem;display:block}
+.ast-num{display:block;font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:700;color:var(--brown)}
+.ast-label{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:var(--text-light)}
+.admin-section{background:white;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);margin-bottom:20px}
+.admin-section-title{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--brown);margin-bottom:16px}
+.admin-empty{color:var(--text-light);font-size:.9rem}
+.cat-stats{display:flex;flex-direction:column;gap:10px}
+.cat-stat{display:flex;align-items:center;gap:12px}
+.cat-stat-badge{background:var(--gold);color:white;border-radius:6px;padding:2px 10px;font-size:.78rem;font-weight:700;min-width:36px;text-align:center}
+.cat-stat-info{font-size:.85rem;color:var(--text);min-width:110px}
+.cat-mini-bar{flex:1;height:8px;background:var(--beige-dark);border-radius:50px;overflow:hidden}
+.cat-mini-fill{height:100%;background:linear-gradient(90deg,var(--sage),var(--gold));border-radius:50px;transition:width .5s}
+.guest-list{display:flex;flex-direction:column;gap:12px}
+.guest-card{background:var(--beige);border-radius:var(--radius-sm);padding:16px}
+.gc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.gc-name{font-weight:600;color:var(--brown);font-size:.95rem;display:block}
+.gc-companions{font-size:.8rem;color:var(--text-light)}
+.gc-meta{display:flex;align-items:center;gap:8px}
+.gc-time{font-size:.75rem;color:var(--text-light)}
+.gc-msg{font-size:.85rem;color:var(--text-light);font-style:italic;margin-bottom:8px}
+.gc-gifts{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.gc-gift-tag{background:white;border:1px solid var(--beige-dark);border-radius:20px;padding:4px 10px;font-size:.75rem;color:var(--text);display:flex;align-items:center;gap:4px}
+.gc-free-btn{background:none;border:none;cursor:pointer;color:var(--text-light);font-size:.9rem;line-height:1;padding:0 2px}
+.gc-free-btn:hover{color:#D32F2F}
+.avail-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.avail-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;font-size:.82rem;background:linear-gradient(135deg,#E8F5E9,#D4EDDA)}
+.ai-num{color:var(--text-light);font-size:.7rem;font-weight:600}
+.ai-cat{background:var(--sage);color:white;border-radius:4px;padding:1px 6px;font-size:.68rem;font-weight:700}
+.ai-name{color:var(--text);flex:1}
+</style>
+</head>
+<body>
+
+<button id="btn-admin-gear" title="Área administrativa">⚙️</button>
+
+<!-- HOME -->
+<div id="view-home">
+  <header class="hero">
+    <div class="hero-bg">
+      <div class="cloud c1"></div><div class="cloud c2"></div>
+      <div class="leaf l1"></div><div class="leaf l2"></div><div class="leaf l3"></div>
+      <div class="star-dot s0"></div><div class="star-dot s1"></div>
+      <div class="star-dot s2"></div><div class="star-dot s3"></div>
+      <div class="star-dot s4"></div><div class="star-dot s5"></div>
+      <div class="star-dot s6"></div><div class="star-dot s7"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-bear">
+        <svg viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="38" rx="18" ry="16" fill="#C9A86A" opacity=".3"/>
+          <ellipse cx="32" cy="36" rx="14" ry="13" fill="#C9A86A" opacity=".5"/>
+          <circle cx="20" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+          <circle cx="44" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+          <circle cx="32" cy="32" r="12" fill="#C9A86A" opacity=".8"/>
+          <ellipse cx="32" cy="37" rx="7" ry="5" fill="#A8704A" opacity=".4"/>
+          <circle cx="28" cy="29" r="2" fill="#5C3D2E"/>
+          <circle cx="36" cy="29" r="2" fill="#5C3D2E"/>
+          <ellipse cx="32" cy="34" rx="2" ry="1.5" fill="#5C3D2E" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="hero-stars">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <h1 class="hero-title">Chá de Bebê do <span class="hero-name">Pedro</span></h1>
+      <p class="hero-welcome">Estamos muito felizes em compartilhar esse momento tão especial com você. Confirme sua presença e escolha um ou mais presentes para ajudar a receber nosso pequeno Pedro com muito carinho.</p>
+      <div class="event-details">
+        <div class="event-item">📅 <strong>25 de Julho</strong></div>
+        <div class="event-item">🕒 <strong>15h00</strong></div>
+        <div class="event-item">📍 <strong>Rua Lombardia, 83 — Parque Paulista</strong></div>
+        <a class="maps-btn" href="https://www.google.com/maps/search/Rua+Lombardia+83+Parque+Paulista" target="_blank" rel="noopener noreferrer">🗺️ Abrir no Google Maps</a>
+      </div>
+      <div class="countdown-section">
+        <p class="countdown-title">Faltam</p>
+        <div class="countdown-wrap">
+          <div class="countdown-unit"><span class="countdown-num" id="cd-days">--</span><span class="countdown-sub">dias</span></div>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-hours">--</span><span class="countdown-sub">horas</span></div>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-mins">--</span><span class="countdown-sub">minutos</span></div>
+          <div class="countdown-unit"><span class="countdown-num" id="cd-secs">--</span><span class="countdown-sub">segundos</span></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="section">
+      <div class="progress-section">
+        <h3 class="section-title">📊 Status da Lista de Presentes</h3>
+        <div class="stats-grid">
+          <div class="stat-card"><span class="stat-icon">🎁</span><span class="stat-num" id="stat-total">70</span><span class="stat-label">Total de itens</span></div>
+          <div class="stat-card stat-green"><span class="stat-icon">✅</span><span class="stat-num" id="stat-res">0</span><span class="stat-label">Reservados</span></div>
+          <div class="stat-card"><span class="stat-icon">📦</span><span class="stat-num" id="stat-avail">70</span><span class="stat-label">Disponíveis</span></div>
+          <div class="stat-card stat-gold"><span class="stat-icon">🌟</span><span class="stat-num" id="stat-pct">0%</span><span class="stat-label">Concluído</span></div>
+        </div>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill" style="width:0%"><span class="progress-bar-shine"></span></div></div>
+        <p class="progress-caption" id="prog-caption">0% da lista preenchida</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-heading">✉️ Confirmar Presença</h2>
+      <div class="form-card">
+        <div class="form-group">
+          <label class="form-label">Nome completo <span class="req">*</span></label>
+          <input id="inp-name" class="form-input" type="text" placeholder="Seu nome completo"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Quantidade de acompanhantes <span class="req">*</span></label>
+          <select id="inp-comp" class="form-input">
+            <option value="0">0 acompanhantes</option>
+            <option value="1">1 acompanhante</option>
+            <option value="2">2 acompanhantes</option>
+            <option value="3">3 acompanhantes</option>
+            <option value="4">4 acompanhantes</option>
+            <option value="5">5 acompanhantes</option>
+            <option value="6">6 acompanhantes</option>
+            <option value="7">7 acompanhantes</option>
+            <option value="8">8 acompanhantes</option>
+            <option value="9">9 acompanhantes</option>
+            <option value="10">10 acompanhantes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Mensagem para os pais <span class="opt">(opcional)</span></label>
+          <textarea id="inp-msg" class="form-input" placeholder="Deixe um recado carinhoso para os pais do Pedro..."></textarea>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-heading">🎁 Lista de Presentes</h2>
+      <div id="sel-summary" class="sel-summary hidden">✨ Você selecionou <strong id="sel-count">0</strong> presente(s).</div>
+      <div class="brand-notice">
+        <p class="brand-title">🍼 Marca das Fraldas</p>
+        <div class="brand-grid">
+          <div class="brand-card"><span class="brand-icon">💙</span><span class="brand-name">Pampers</span></div>
+          <div class="brand-card"><span class="brand-icon">💚</span><span class="brand-name">Huggies</span></div>
+          <div class="brand-card"><span class="brand-icon">💛</span><span class="brand-name">Personal</span></div>
+          <div class="brand-card"><span class="brand-icon">🩵</span><span class="brand-name">Babysec</span></div>
+        </div>
+      </div>
+      <div id="gift-container"></div>
+    </section>
+
+    <section class="section submit-section">
+      <div id="form-err" class="err-msg hidden"></div>
+      <button class="btn-primary" id="btn-submit">✉️ Confirmar Presença</button>
+      <p class="submit-note">Ao confirmar, os presentes selecionados serão reservados automaticamente.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <svg viewBox="0 0 64 64" fill="none">
+      <ellipse cx="32" cy="38" rx="18" ry="16" fill="#C9A86A" opacity=".3"/>
+      <ellipse cx="32" cy="36" rx="14" ry="13" fill="#C9A86A" opacity=".5"/>
+      <circle cx="20" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+      <circle cx="44" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+      <circle cx="32" cy="32" r="12" fill="#C9A86A" opacity=".8"/>
+      <ellipse cx="32" cy="37" rx="7" ry="5" fill="#A8704A" opacity=".4"/>
+      <circle cx="28" cy="29" r="2" fill="#5C3D2E"/>
+      <circle cx="36" cy="29" r="2" fill="#5C3D2E"/>
+      <ellipse cx="32" cy="34" rx="2" ry="1.5" fill="#5C3D2E" opacity=".6"/>
+    </svg>
+    <p>Feito com 💛 para o Chá de Bebê do Pedro</p>
+  </footer>
+</div>
+
+<!-- SUCCESS -->
+<div id="view-success" class="hidden">
+  <div class="success-card">
+    <div class="success-bear">
+      <svg viewBox="0 0 64 64" fill="none">
+        <ellipse cx="32" cy="38" rx="18" ry="16" fill="#C9A86A" opacity=".3"/>
+        <ellipse cx="32" cy="36" rx="14" ry="13" fill="#C9A86A" opacity=".5"/>
+        <circle cx="20" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+        <circle cx="44" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+        <circle cx="32" cy="32" r="12" fill="#C9A86A" opacity=".8"/>
+        <ellipse cx="32" cy="37" rx="7" ry="5" fill="#A8704A" opacity=".4"/>
+        <circle cx="28" cy="29" r="2" fill="#5C3D2E"/>
+        <circle cx="36" cy="29" r="2" fill="#5C3D2E"/>
+        <ellipse cx="32" cy="34" rx="2" ry="1.5" fill="#5C3D2E" opacity=".6"/>
+      </svg>
+    </div>
+    <div class="success-stars">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </div>
+    <h2 class="success-title">Confirmação Realizada! 🎉</h2>
+    <p class="success-msg">Obrigado pela confirmação! Estamos ansiosos para celebrar a chegada do Pedro com você.</p>
+    <div class="success-info">
+      <div class="suc-row"><span class="suc-key">👤 Convidado</span><span class="suc-val" id="suc-name"></span></div>
+      <div class="suc-row"><span class="suc-key">👥 Acompanhantes</span><span class="suc-val" id="suc-comp"></span></div>
+      <div class="suc-row"><span class="suc-key">📅 Data</span><span class="suc-val">25 de Julho</span></div>
+      <div class="suc-row"><span class="suc-key">🕒 Horário</span><span class="suc-val">15h00</span></div>
+      <div class="suc-row"><span class="suc-key">📍 Local</span><span class="suc-val">Rua Lombardia, 83 — Parque Paulista</span></div>
+    </div>
+    <div id="suc-gifts-wrap" class="hidden">
+      <p class="suc-gifts-ttl">🎁 Presentes reservados por você:</p>
+      <div id="suc-gifts-list"></div>
+    </div>
+    <button class="btn-secondary" id="btn-back">← Voltar ao início</button>
+  </div>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="view-admin-login" class="hidden">
+  <div class="login-card">
+    <div class="login-bear">
+      <svg viewBox="0 0 64 64" fill="none">
+        <ellipse cx="32" cy="38" rx="18" ry="16" fill="#C9A86A" opacity=".3"/>
+        <ellipse cx="32" cy="36" rx="14" ry="13" fill="#C9A86A" opacity=".5"/>
+        <circle cx="20" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+        <circle cx="44" cy="22" r="7" fill="#C9A86A" opacity=".6"/>
+        <circle cx="32" cy="32" r="12" fill="#C9A86A" opacity=".8"/>
+        <ellipse cx="32" cy="37" rx="7" ry="5" fill="#A8704A" opacity=".4"/>
+        <circle cx="28" cy="29" r="2" fill="#5C3D2E"/>
+        <circle cx="36" cy="29" r="2" fill="#5C3D2E"/>
+        <ellipse cx="32" cy="34" rx="2" ry="1.5" fill="#5C3D2E" opacity=".6"/>
+      </svg>
+    </div>
+    <h2 class="login-title">Área Administrativa</h2>
+    <p class="login-sub">Acesso restrito aos organizadores</p>
+    <input id="login-user" class="form-input" type="text" placeholder="Usuário"/>
+    <input id="login-pass" class="form-input" type="password" placeholder="Senha"/>
+    <div id="login-err" class="err-msg hidden">Usuário ou senha incorretos.</div>
+    <button class="btn-primary" id="btn-login" style="padding:14px 36px;align-self:stretch">Entrar</button>
+    <button class="btn-secondary" id="btn-login-back">← Voltar</button>
+  </div>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="view-admin" class="hidden">
+  <div class="admin-inner">
+    <div class="admin-header">
+      <div>
+        <h2 class="admin-title">Painel Administrativo</h2>
+        <p class="admin-sub">Chá de Bebê do Pedro</p>
+      </div>
+      <div class="admin-actions">
+        <button class="btn-export" id="btn-export">⬇️ Exportar CSV</button>
+        <button class="btn-logout" id="btn-logout">Sair</button>
+      </div>
+    </div>
+    <div class="admin-stats" id="admin-stats"></div>
+    <div class="admin-section">
+      <h3 class="admin-section-title">Por Categoria</h3>
+      <div class="cat-stats" id="admin-cat-stats"></div>
+    </div>
+    <div class="admin-section">
+      <h3 class="admin-section-title">Lista de Convidados</h3>
+      <div id="admin-guests" class="guest-list"></div>
+    </div>
+    <div class="admin-section">
+      <h3 class="admin-section-title">Presentes Disponíveis</h3>
+      <div id="admin-avail" class="avail-grid"></div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+// ── SUPABASE ──────────────────────────────────────────────────────────────────
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+
+const SUPA_URL = "https://hjndeauvlguahilcshhp.supabase.co";
+const SUPA_KEY = "sb_publishable_LeC0gDDehA5C8-LWG0M8Yg_QDECYu0Z";
+const sb = createClient(SUPA_URL, SUPA_KEY);
+
+// ── DADOS DOS PRESENTES ───────────────────────────────────────────────────────
+const GIFTS=[
+  {id:1,cat:"RN",name:"Fralda RN + Lenço Umedecido"},
+  {id:2,cat:"RN",name:"Fralda RN + Lenço Umedecido"},
+  {id:3,cat:"RN",name:"Fralda RN + Pomada"},
+  {id:4,cat:"RN",name:"Fralda RN + Sabonete Líquido Infantil"},
+  {id:5,cat:"RN",name:"Fralda RN + Shampoo Infantil"},
+  {id:6,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:7,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:8,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:9,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:10,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:11,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:12,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:13,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:14,cat:"P",name:"Fralda P + Pomada"},
+  {id:15,cat:"P",name:"Fralda P + Sabonete Líquido Infantil"},
+  {id:16,cat:"P",name:"Fralda P + Sabonete de Glicerina"},
+  {id:17,cat:"P",name:"Fralda P + Shampoo Infantil"},
+  {id:18,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:19,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:20,cat:"P",name:"Fralda P + Lenço Umedecido"},
+  {id:21,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:22,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:23,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:24,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:25,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:26,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:27,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:28,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:29,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:30,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:31,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:32,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:33,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:34,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:35,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:36,cat:"M",name:"Fralda M + Pomada"},
+  {id:37,cat:"M",name:"Fralda M + Pomada"},
+  {id:38,cat:"M",name:"Fralda M + Sabonete Líquido Infantil"},
+  {id:39,cat:"M",name:"Fralda M + Sabonete Líquido Infantil"},
+  {id:40,cat:"M",name:"Fralda M + Sabonete de Glicerina"},
+  {id:41,cat:"M",name:"Fralda M + Sabonete de Glicerina"},
+  {id:42,cat:"M",name:"Fralda M + Shampoo Infantil"},
+  {id:43,cat:"M",name:"Fralda M + Shampoo Infantil"},
+  {id:44,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:45,cat:"M",name:"Fralda M + Lenço Umedecido"},
+  {id:46,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:47,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:48,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:49,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:50,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:51,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:52,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:53,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:54,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:55,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:56,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:57,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:58,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:59,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:60,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:61,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:62,cat:"G",name:"Fralda G + Lenço Umedecido"},
+  {id:63,cat:"G",name:"Fralda G + Pomada"},
+  {id:64,cat:"G",name:"Fralda G + Sabonete Líquido Infantil"},
+  {id:65,cat:"G",name:"Fralda G + Sabonete Líquido Infantil"},
+  {id:66,cat:"G",name:"Fralda G + Sabonete de Glicerina"},
+  {id:67,cat:"G",name:"Fralda G + Sabonete de Glicerina"},
+  {id:68,cat:"G",name:"Fralda G + Shampoo Infantil"},
+  {id:69,cat:"G",name:"Fralda G + Termômetro"},
+  {id:70,cat:"G",name:"Fralda G + Termômetro"}
+];
+const CAT_LABELS={RN:"Recém-Nascido",P:"Tamanho P",M:"Tamanho M",G:"Tamanho G"};
+const AU="admin", AP="pedro2025";
+
+// ── ESTADO ────────────────────────────────────────────────────────────────────
+let selected = [];
+// reservations: { gift_id: guest_name }
+let reservations = {};
+// confirmations: array de objetos do supabase
+let confirmations = [];
+
+// ── VIEWS ─────────────────────────────────────────────────────────────────────
+const VIEWS=["view-home","view-success","view-admin-login","view-admin"];
+function showView(id){
+  VIEWS.forEach(v=>document.getElementById(v).classList.toggle("hidden",v!==id));
+  document.getElementById("btn-admin-gear").style.display=(id==="view-home")?"flex":"none";
+  window.scrollTo(0,0);
+}
+
+// ── LOADING OVERLAY ───────────────────────────────────────────────────────────
+function setLoading(on){
+  let el=document.getElementById("loading-overlay");
+  if(!el){
+    el=document.createElement("div");el.id="loading-overlay";
+    el.style.cssText="position:fixed;inset:0;background:rgba(245,233,216,.85);display:flex;align-items:center;justify-content:center;z-index:9999;font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#5C3D2E;flex-direction:column;gap:12px;backdrop-filter:blur(4px)";
+    el.innerHTML='<div style="font-size:2rem">🍼</div><div>Carregando...</div>';
+    document.body.appendChild(el);
+  }
+  el.style.display=on?"flex":"none";
+}
+
+// ── CARREGAR DADOS DO SUPABASE ────────────────────────────────────────────────
+async function loadFromSupabase(){
+  const [{data:res},{data:confs}] = await Promise.all([
+    sb.from("reservations").select("*"),
+    sb.from("confirmations").select("*").order("created_at",{ascending:true})
+  ]);
+  reservations={};
+  (res||[]).forEach(r=>{ reservations[r.gift_id]=r.guest_name; });
+  confirmations = confs||[];
+}
+
+// ── COUNTDOWN ─────────────────────────────────────────────────────────────────
+function tick(){
+  const ev=new Date("2025-07-25T15:00:00"),diff=ev-new Date();
+  const p=n=>String(Math.floor(n)).padStart(2,"0");
+  if(diff<=0){["cd-days","cd-hours","cd-mins","cd-secs"].forEach(i=>document.getElementById(i).textContent="00");return;}
+  document.getElementById("cd-days").textContent=p(diff/86400000);
+  document.getElementById("cd-hours").textContent=p((diff%86400000)/3600000);
+  document.getElementById("cd-mins").textContent=p((diff%3600000)/60000);
+  document.getElementById("cd-secs").textContent=p((diff%60000)/1000);
+}
+tick();setInterval(tick,1000);
+
+// ── PROGRESS ──────────────────────────────────────────────────────────────────
+function updateProgress(){
+  const tot=GIFTS.length,res=Object.keys(reservations).length,av=tot-res,pct=Math.round(res/tot*100);
+  document.getElementById("stat-total").textContent=tot;
+  document.getElementById("stat-res").textContent=res;
+  document.getElementById("stat-avail").textContent=av;
+  document.getElementById("stat-pct").textContent=pct+"%";
+  document.getElementById("prog-fill").style.width=pct+"%";
+  document.getElementById("prog-caption").textContent=pct+"% da lista preenchida";
+}
+
+// ── LISTA DE PRESENTES ────────────────────────────────────────────────────────
+function buildGifts(){
+  const c=document.getElementById("gift-container");c.innerHTML="";
+  ["RN","P","M","G"].forEach(cat=>{
+    const gifts=GIFTS.filter(g=>g.cat===cat);
+    const avCnt=gifts.filter(g=>!reservations[g.id]).length;
+    const block=document.createElement("div");block.className="cat-block";
+    block.innerHTML=`<div class="cat-header">
+      <span class="cat-badge">${cat}</span>
+      <span class="cat-label-txt">${CAT_LABELS[cat]}</span>
+      <span class="cat-avail" id="ca-${cat}">${avCnt} disponíveis</span>
+    </div><div class="gift-grid" id="cg-${cat}"></div>`;
+    c.appendChild(block);
+    const grid=document.getElementById("cg-"+cat);
+    gifts.forEach(g=>{
+      const btn=document.createElement("button");
+      btn.id="gb-"+g.id;
+      renderGiftBtn(btn,g);
+      if(!reservations[g.id]) btn.addEventListener("click",()=>toggleGift(g.id));
+      grid.appendChild(btn);
+    });
+  });
+}
+
+function renderGiftBtn(btn,g){
+  const res=!!reservations[g.id],sel=selected.includes(g.id);
+  btn.className="gift-card"+(res?" g-reserved":sel?" g-selected":"");
+  btn.disabled=res;
+  btn.innerHTML=`<span class="gift-num">#${g.id}</span><span class="gift-name-txt">${g.name}</span>`
+    +(res?`<span class="gift-badge">Reservado ✓</span>`:"")
+    +(!res&&sel?`<span class="gift-badge g-selbadge">Selecionado ✓</span>`:"");
+}
+
+function toggleGift(id){
+  const i=selected.indexOf(id);
+  if(i>=0)selected.splice(i,1);else selected.push(id);
+  const g=GIFTS.find(x=>x.id===id);
+  const btn=document.getElementById("gb-"+id);
+  if(btn)renderGiftBtn(btn,g);
+  const ss=document.getElementById("sel-summary");
+  if(selected.length>0){ss.classList.remove("hidden");document.getElementById("sel-count").textContent=selected.length;}
+  else ss.classList.add("hidden");
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────────────
+document.getElementById("btn-submit").addEventListener("click", async ()=>{
+  const name=document.getElementById("inp-name").value.trim();
+  const comp=parseInt(document.getElementById("inp-comp").value)||0;
+  const msg=document.getElementById("inp-msg").value.trim();
+
+  if(!name){showErr("Por favor, informe seu nome completo.");return;}
+
+  // Checar nome duplicado
+  const dup=confirmations.find(c=>c.name.toLowerCase()===name.toLowerCase());
+  if(dup){showErr("Já existe uma confirmação com este nome. Entre em contato com os organizadores se precisar alterar.");return;}
+
+  // Checar se algum presente já foi reservado (corrida)
+  const taken=selected.filter(id=>reservations[id]);
+  if(taken.length){
+    showErr("Alguns itens foram reservados por outra pessoa: "+taken.map(id=>`#${id}`).join(", ")+". Por favor, desmarque-os.");
+    taken.forEach(id=>{selected=selected.filter(x=>x!==id);const g=GIFTS.find(x=>x.id===id);const b=document.getElementById("gb-"+id);if(b)renderGiftBtn(b,g);});
+    if(!selected.length)document.getElementById("sel-summary").classList.add("hidden");
+    return;
+  }
+
+  const btn=document.getElementById("btn-submit");
+  btn.disabled=true;btn.classList.add("btn-loading");btn.textContent="Confirmando...";
+  document.getElementById("form-err").classList.add("hidden");
+
+  try{
+    // 1) Inserir confirmação
+    const {data:confData,error:confErr}=await sb.from("confirmations").insert({
+      name, companions:comp, message:msg, gifts:selected
+    }).select().single();
+    if(confErr) throw confErr;
+
+    // 2) Inserir reservas
+    if(selected.length){
+      const rows=selected.map(gid=>({gift_id:gid,guest_name:name,confirmation_id:confData.id}));
+      const {error:resErr}=await sb.from("reservations").insert(rows);
+      if(resErr) throw resErr;
+    }
+
+    // 3) Atualizar estado local
+    selected.forEach(id=>reservations[id]=name);
+    confirmations.push(confData);
+
+    // 4) Tela de sucesso
+    document.getElementById("suc-name").textContent=confData.name;
+    document.getElementById("suc-comp").textContent=comp+" acompanhante(s)";
+    const wrap=document.getElementById("suc-gifts-wrap"),list=document.getElementById("suc-gifts-list");
+    list.innerHTML="";
+    const myG=GIFTS.filter(g=>confData.gifts.includes(g.id));
+    if(myG.length){
+      wrap.classList.remove("hidden");
+      myG.forEach(g=>{const d=document.createElement("div");d.className="suc-gift-item";d.innerHTML=`<span class="sgi-num">#${g.id}</span><span>${g.name}</span>`;list.appendChild(d);});
+    }else wrap.classList.add("hidden");
+
+    document.getElementById("inp-name").value="";
+    document.getElementById("inp-comp").value="0";
+    document.getElementById("inp-msg").value="";
+    selected=[];
+    document.getElementById("sel-summary").classList.add("hidden");
+    updateProgress();
+    buildGifts();
+    showView("view-success");
+  }catch(e){
+    console.error(e);
+    showErr("Erro ao confirmar. Tente novamente em instantes.");
+  }finally{
+    btn.disabled=false;btn.classList.remove("btn-loading");btn.textContent="✉️ Confirmar Presença";
+  }
+});
+
+function showErr(msg){
+  const e=document.getElementById("form-err");e.textContent=msg;e.classList.remove("hidden");
+  e.scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+document.getElementById("btn-back").addEventListener("click",()=>{
+  updateProgress();buildGifts();showView("view-home");
+});
+
+// ── ADMIN ─────────────────────────────────────────────────────────────────────
+document.getElementById("btn-admin-gear").addEventListener("click",()=>showView("view-admin-login"));
+document.getElementById("btn-login-back").addEventListener("click",()=>showView("view-home"));
+document.getElementById("login-pass").addEventListener("keydown",e=>{if(e.key==="Enter")doLogin();});
+document.getElementById("btn-login").addEventListener("click",doLogin);
+
+function doLogin(){
+  const u=document.getElementById("login-user").value,p=document.getElementById("login-pass").value;
+  if(u===AU&&p===AP){
+    document.getElementById("login-err").classList.add("hidden");
+    renderAdmin();showView("view-admin");
+  }else document.getElementById("login-err").classList.remove("hidden");
+}
+
+document.getElementById("btn-logout").addEventListener("click",()=>{
+  document.getElementById("login-user").value="";
+  document.getElementById("login-pass").value="";
+  showView("view-home");
+});
+
+function renderAdmin(){
+  const res=reservations, confs=confirmations;
+  const tot=GIFTS.length,resN=Object.keys(res).length;
+  const ppl=confs.reduce((s,c)=>s+1+(parseInt(c.companions)||0),0);
+
+  document.getElementById("admin-stats").innerHTML=[
+    {i:"👥",n:confs.length,l:"Confirmados"},
+    {i:"🧑‍🤝‍🧑",n:ppl,l:"Total de pessoas"},
+    {i:"🎁",n:resN,l:"Presentes reservados"},
+    {i:"📦",n:tot-resN,l:"Disponíveis"},
+    {i:"📊",n:Math.round(resN/tot*100)+"%",l:"% da lista"},
+  ].map(s=>`<div class="admin-stat"><span class="ast-icon">${s.i}</span><span class="ast-num">${s.n}</span><span class="ast-label">${s.l}</span></div>`).join("");
+
+  document.getElementById("admin-cat-stats").innerHTML=["RN","P","M","G"].map(cat=>{
+    const items=GIFTS.filter(g=>g.cat===cat);
+    const r=items.filter(g=>res[g.id]).length;
+    return`<div class="cat-stat"><span class="cat-stat-badge">${cat}</span><span class="cat-stat-info">${r}/${items.length} reservados</span><div class="cat-mini-bar"><div class="cat-mini-fill" style="width:${Math.round(r/items.length*100)}%"></div></div></div>`;
+  }).join("");
+
+  const gEl=document.getElementById("admin-guests");
+  if(!confs.length){gEl.innerHTML='<p class="admin-empty">Nenhuma confirmação ainda.</p>';}
+  else{
+    gEl.innerHTML=confs.map(c=>{
+      const gifts=Array.isArray(c.gifts)?c.gifts:[];
+      const tags=GIFTS.filter(g=>gifts.includes(g.id)).map(g=>
+        `<span class="gc-gift-tag">#${g.id} ${g.name}<button class="gc-free-btn" data-gid="${g.id}" data-cid="${c.id}" title="Liberar">×</button></span>`
+      ).join("");
+      return`<div class="guest-card" id="gc-${c.id}">
+        <div class="gc-top">
+          <div><strong class="gc-name">${esc(c.name)}</strong><span class="gc-companions">+${c.companions} acompanhante(s)</span></div>
+          <div class="gc-meta"><span class="gc-time">${new Date(c.created_at).toLocaleString("pt-BR")}</span><button class="btn-delete" data-del="${c.id}" title="Excluir">🗑️</button></div>
+        </div>
+        ${c.message?`<p class="gc-msg">"${esc(c.message)}"</p>`:""}
+        ${tags?`<div class="gc-gifts">${tags}</div>`:""}
+      </div>`;
+    }).join("");
+    gEl.querySelectorAll(".btn-delete").forEach(b=>b.addEventListener("click",()=>deleteConf(b.dataset.del)));
+    gEl.querySelectorAll(".gc-free-btn").forEach(b=>b.addEventListener("click",()=>freeGift(+b.dataset.gid,b.dataset.cid)));
+  }
+
+  const av=GIFTS.filter(g=>!res[g.id]);
+  document.getElementById("admin-avail").innerHTML=av.length
+    ?av.map(g=>`<div class="avail-item"><span class="ai-num">#${g.id}</span><span class="ai-cat">${g.cat}</span><span class="ai-name">${g.name}</span></div>`).join("")
+    :'<p class="admin-empty">Todos os presentes foram reservados! 🎉</p>';
+}
+
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+
+async function deleteConf(id){
+  if(!confirm("Excluir esta confirmação? Os presentes serão liberados."))return;
+  // ON DELETE CASCADE cuida das reservas automaticamente
+  const {error}=await sb.from("confirmations").delete().eq("id",id);
+  if(error){alert("Erro ao excluir: "+error.message);return;}
+  await loadFromSupabase();
+  updateProgress();buildGifts();renderAdmin();
+}
+
+async function freeGift(gid, cid){
+  if(!confirm("Liberar este presente?"))return;
+  await sb.from("reservations").delete().eq("gift_id",gid);
+  // Remover do array de gifts da confirmação
+  const conf=confirmations.find(c=>String(c.id)===String(cid));
+  if(conf){
+    const newGifts=(conf.gifts||[]).filter(g=>g!==gid);
+    await sb.from("confirmations").update({gifts:newGifts}).eq("id",cid);
+  }
+  await loadFromSupabase();
+  updateProgress();buildGifts();renderAdmin();
+}
+
+document.getElementById("btn-export").addEventListener("click",()=>{
+  const rows=[["Nome","Acompanhantes","Mensagem","Presentes","Data/Hora"],
+    ...confirmations.map(c=>[
+      c.name,c.companions,c.message||"",
+      GIFTS.filter(g=>(c.gifts||[]).includes(g.id)).map(g=>`#${g.id} ${g.name}`).join(" | "),
+      new Date(c.created_at).toLocaleString("pt-BR")
+    ])
+  ];
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\n");
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"}));
+  a.download="cha_pedro_confirmacoes.csv";a.click();
+});
+
+// ── REALTIME ──────────────────────────────────────────────────────────────────
+function setupRealtime(){
+  sb.channel("db-changes")
+    .on("postgres_changes",{event:"*",schema:"public",table:"reservations"},async ()=>{
+      await loadFromSupabase();
+      updateProgress();
+      buildGifts();
+      // Se admin aberto, atualiza painel
+      if(!document.getElementById("view-admin").classList.contains("hidden")) renderAdmin();
+    })
+    .on("postgres_changes",{event:"*",schema:"public",table:"confirmations"},async ()=>{
+      await loadFromSupabase();
+      updateProgress();
+      buildGifts();
+      if(!document.getElementById("view-admin").classList.contains("hidden")) renderAdmin();
+    })
+    .subscribe();
+}
+
+// ── INICIALIZAÇÃO ─────────────────────────────────────────────────────────────
+async function init(){
+  setLoading(true);
+  try{
+    await loadFromSupabase();
+    buildGifts();
+    updateProgress();
+    setupRealtime();
+  }catch(e){
+    console.error("Erro ao conectar ao banco:",e);
+    document.getElementById("gift-container").innerHTML='<p style="color:#D32F2F;padding:16px">Erro ao carregar dados. Verifique sua conexão.</p>';
+  }finally{
+    setLoading(false);
+  }
+}
+init();
+</script>
+</body>
+</html>
